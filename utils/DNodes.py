@@ -1,5 +1,4 @@
 from utils.DLine import DLine
-from utils.DPoint import DPoint
 
 class DNodes:
     def __init__(self, node_list : list, relation_list : list) -> None:
@@ -13,6 +12,9 @@ class DNodes:
             if bool( node ):
                 nodes[ node.n ] = node
         return nodes
+
+    def size( self ):
+        return len( list( self.nodes.keys() ) )
 
     def parse_rex( self, relation_list : list ):
         rex = []

@@ -8,12 +8,25 @@ import cv2 as cv
 class DRectangle (DTwoPointAbstract):
     MAX_ENUM = 10
     __enumarator = ( i for i in range( 1, MAX_ENUM + 1 ) )
+    colors = {}
 
-    def __init__(self, pa: DPoint | NoneType = None, pb: DPoint | NoneType = None):
+    def __init__(self, n : int | NoneType = None, pa: DPoint | NoneType = None, pb: DPoint | NoneType = None):
         super().__init__(pa, pb)
-        self.n = self.enum( self.__enumarator )
-        self.color = ( randint( 0,255 ), randint( 0,255 ), randint( 0,255 ) )
+        self.n = self.enum( self.__enumarator, n )
+        self.color = self.set_color()
         self._flag = False
+
+    def set_color( self ):
+        if self.n in list( self.colors.keys() ):
+            return self.colors[ self.n ]
+        else:
+            color = ( randint( 0,255 ), randint( 0,255 ), randint( 0,255 ) )
+            self.colors[ self.n ] = color
+            return color
+
+    def crop( self, img ):
+        x_min, x_max, y_min, y_max = self.get()
+        return img[ y_min:y_max, x_min:x_max ], DPoint( x_min, y_min )
 
     def mouse_callback( self, event, x, y, *_ ):
         if event == cv.EVENT_LBUTTONDOWN:

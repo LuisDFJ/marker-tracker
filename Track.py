@@ -4,12 +4,9 @@ from utils.DTracker import DTracker
 
 node_list = [
     ( 1,2 ),
-    ( 1,3 ),
-    ( 2,5 ),
-    ( 5,1 ),
-    ( 4,3 ),
-    ( 5,2 ),
-    ( 1,3 )
+    ( 2,3 ),
+    ( 3,4 ),
+    ( 4,1 ),
 ]
 
 
@@ -37,7 +34,24 @@ if __name__ == "__main__":
                 break
 
         nodes = mt.get( node_list )
-        tracker = DTracker( frame, nodes )
+        mc = DMouseTracker( nodes.size(), False )
+        cv.setMouseCallback( 'Video', mc.mouse_callback )
+        while True:
+            ok, frame = cap.read()
+            if not ok:
+                break
+
+            mt.draw( frame )
+            mc.draw( frame )
+
+            cv.imshow( 'Video', frame )
+
+            key = cv.waitKey( 1 )
+            if key == ord( 'q' ):
+                break
+
+        cv.setMouseCallback( 'Video', lambda *_: None )
+        tracker = DTracker( frame, nodes, mc.get_rects() )
 
         while True:
             ok, frame = cap.read()

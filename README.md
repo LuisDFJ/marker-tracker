@@ -1,2 +1,2 @@
 # Marker Tracker
-COmputer Vision Tracking tool.
+Computer Vision Tracking tool.

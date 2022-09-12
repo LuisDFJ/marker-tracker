@@ -7,7 +7,7 @@ import cv2 as cv
 
 class DLine (DTwoPointAbstract):
     MAX_ENUM = 100
-    __enumarator = ( i for i in range( 1, MAX_ENUM ) )
+    __enumarator = ( i for i in range( 1, MAX_ENUM + 1 ) )
     def __init__(self, pa: DPoint | NoneType = None, pb: DPoint | NoneType = None):
         super().__init__(pa, pb)
         self.n = self.enum( self.__enumarator )

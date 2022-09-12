@@ -2,9 +2,10 @@ from utils.DRectangle import DRectangle
 from utils.DNodes import DNodes
 
 class DMouseTracker:
-    def __init__( self, n ):
+    def __init__( self, n, autoenum : bool = True ):
         self.n = n
-        self.rectangles = [ DRectangle() for _ in range( n ) ]
+        if  autoenum: self.rectangles = [ DRectangle() for _ in range( n ) ]
+        else        : self.rectangles = [ DRectangle( n=i ) for i in range( 1, n + 1 ) ]
         self.pRect = self.gen_iter()
         self.cRect = next( self.pRect )
 
@@ -23,3 +24,6 @@ class DMouseTracker:
 
     def get( self, *args ):
         return DNodes( self.rectangles, *args )
+
+    def get_rects( self ):
+        return self.rectangles
